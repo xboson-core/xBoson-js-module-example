@@ -1,0 +1,61 @@
+plugins {
+    id 'java-library'
+}
+
+group = 'org.xboson'
+version = '1.0.0'
+def xbosonWar = 'D:/javaee-project/xBoson/build/libs/xboson.war'
+def xbosonClass = 'xboson-classes'
+
+
+defaultTasks 'jar'
+
+java {
+    // sourceCompatibility = JavaVersion.VERSION_8
+    // targetCompatibility = JavaVersion.VERSION_8
+    withSourcesJar()
+    withJavadocJar()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // implementation 'org.slf4j:slf4j-api:2.0.13'
+    implementation files(xbosonWar)
+    implementation files("$buildDir/$xbosonClass")
+    // implementation fileTree(dir: "$xbosonClass", include: ['*.jar'])
+}
+
+tasks.named('jar') {
+    archiveBaseName.set('xBoson-module-example')
+    archiveVersion.set(version)
+
+    // from('src/main/resources') {
+    //     include 'META-INF/services/**'
+    // }
+}
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': 'xBoson-module-example',
+            'Implementation-Version': version,
+            'Implementation-Vendor': 'xBoson'
+        )
+    }
+}
+
+task extractWarClasses(type: Copy) {
+    from(zipTree(xbosonWar)) {
+        include 'WEB-INF/classes/com/xboson/exports/**'
+        eachFile { details ->
+            details.path = details.path.replaceFirst('WEB-INF/classes/', '')
+        }
+        includeEmptyDirs = false
+    }
+    into "$buildDir//$xbosonClass"
+}
+
+compileJava.dependsOn extractWarClasses
