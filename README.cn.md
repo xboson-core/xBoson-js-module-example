@@ -13,11 +13,21 @@ sys.setRetData(0, hello.world());
 
 ## 编译
 
-修改 `build.gradle` 文件中 `xbosonWar` 的路径.
+获取 xboson.jar 文件:
+```bash
+docker run -i --rm xbosoncore/xboson-runtime:latest bash -c \
+  'cat "/app/xboson.jar"' > xboson.jar
+```
 
 `gradle`
 
 发布 `build/libs/*.jar` 到java类路径中, 启动(或重启) xBoson 平台软件.
+
+当你用 [install.sh](https://github.com/xboson-core/xboson-runtime/blob/main/docs/getting-started/adv_install.md) 安装时可以:
+```bash
+docker cp your_module_file.jar xboson-rt:/app/lib/
+docker restart xboson-rt
+```
 
 
 ## 服务注册

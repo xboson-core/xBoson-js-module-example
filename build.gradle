@@ -6,6 +6,7 @@ group = 'org.xboson'
 version = '1.0.0'
 def xbosonWar = 'D:/javaee-project/xBoson/build/libs/xboson.war'
 def xbosonClass = 'xboson-classes'
+def xbosonJar = "./"
 
 
 defaultTasks 'jar'
@@ -23,7 +24,8 @@ repositories {
 
 dependencies {
     // implementation 'org.slf4j:slf4j-api:2.0.13'
-    implementation files(xbosonWar)
+    // implementation files(xbosonWar)
+    implementation files(xbosonJar)
     implementation files("$buildDir/$xbosonClass")
     // implementation fileTree(dir: "$xbosonClass", include: ['*.jar'])
 }
@@ -58,4 +60,4 @@ task extractWarClasses(type: Copy) {
     into "$buildDir//$xbosonClass"
 }
 
-compileJava.dependsOn extractWarClasses
+// compileJava.dependsOn extractWarClasses
