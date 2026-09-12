@@ -19,6 +19,11 @@ Modify the path of `xbosonWar` in the `build.gradle` file.
 
 Publish `build/libs/*.jar` to the Java classpath, and start (or restart) the xBoson platform software.
 
+When installing using [install.sh](https://github.com/xboson-core/xboson-runtime/blob/main/docs/getting-started/adv_install.md), you can:
+```bash
+docker cp your_module_file.jar xboson-rt:/app/lib/
+docker restart xboson-rt
+```
 
 ## Service Registration
 
