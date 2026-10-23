@@ -11,6 +11,10 @@ public class Factory implements IJavaScriptModuleFactory {
   }
 
   public void onRequire(JavaScriptModule module) {
+    /**
+      * The log object should be stored as a property; 
+      * the logger is thread-safe.
+      */
     module.log().info("factory on require");
     module.exports = new Hello();
   }
